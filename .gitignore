@@ -16,3 +16,11 @@
 
 ### IDE
 /.idea
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> Mac files
+/.DS_Store

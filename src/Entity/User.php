@@ -27,7 +27,7 @@ class User implements UserInterface
 {
 
     /**
-     * Id User
+     * Id
      *
      * @var                        integer
      * @ORM\Id()

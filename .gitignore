@@ -21,3 +21,6 @@
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+###> Mac files
+/.DS_Store

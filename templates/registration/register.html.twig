@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'enregistrer{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+        }
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: -1px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    {{ form_start(registrationForm, {'attr': {'class': 'form-signin text-center'}}) }}
+        <h1 class="h3 mb-3 font-weight-normal">S'enregistrer</h1>
+        {{ form_widget(registrationForm.username) }}
+        {{ form_widget(registrationForm.email) }}
+        {{ form_widget(registrationForm.plainPassword.first) }}
+        {{ form_widget(registrationForm.plainPassword.second) }}
+        <div class="checkbox mb-3">
+            <label>
+                {{ form_row(registrationForm.agreeTerms) }}
+            </label>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">S'enregistrer</button>
+        <p class="mt-5 mb-3 text-muted text-center"><a href="{{ path('app_login') }}">Se connecter</a></p>
+    {{ form_end(registrationForm) }}
+{% endblock %}

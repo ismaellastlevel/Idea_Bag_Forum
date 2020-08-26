@@ -37,7 +37,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * Email User
+     * Emails User
      *
      * @var                           string
      * @ORM\Column(type="string",     length=180, unique=true)
@@ -71,6 +71,14 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * Get activation token
+     *
+     * @var                       string String.
+     * @ORM\Column(type="string", length=75, nullable=true)
+     */
+    private $activationToken;
+
 
     /**
      * Get Id User
@@ -99,7 +107,7 @@ class User implements UserInterface
     /**
      * Set email User
      *
-     * @param string $email Email of this User.
+     * @param string $email Emails of this User.
      *
      * @return $this
      */
@@ -233,6 +241,34 @@ class User implements UserInterface
         // $this->plainPassword = null;.
 
     }//end eraseCredentials()
+
+
+    /**
+     * Get token activation
+     *
+     * @return string|null
+     */
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+
+    }//end getActivationToken()
+
+
+    /**
+     * Set token
+     *
+     * @param string|null $activationToken Set token.
+     *
+     * @return $this
+     */
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
+
+        return $this;
+
+    }//end setActivationToken()
 
 
 }//end class

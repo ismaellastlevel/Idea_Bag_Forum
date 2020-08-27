@@ -148,9 +148,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         $user = $this->entityManager->getRepository(User::class)->loadUserByUsername($credentials['email']);
 
-        if ($user === false) {
+        if (!$user) {
             // Fail authentication with a custom error.
             throw new CustomUserMessageAuthenticationException('emails could not be found.');
+        }
+
+        if ($user->getActivationToken()) {
+            throw new CustomUserMessageAuthenticationException("Vous devez activer votre compte.");
         }
 
         return $user;

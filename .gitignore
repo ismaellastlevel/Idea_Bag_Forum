@@ -24,3 +24,10 @@
 
 ###> Mac files
 /.DS_Store
+.DS_Store
+###> Mac files
+
+###> npm
+/node_modules
+node_modules
+###> npm

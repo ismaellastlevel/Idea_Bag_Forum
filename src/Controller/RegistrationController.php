@@ -103,7 +103,7 @@ class RegistrationController extends AbstractController
      */
     public function activation(string $token, UserRepository $userRepository, EntityManagerInterface $entityManager)
     {
-        $user = $userRepository->findOneBy(['activation_token' => $token]);
+        $user = $userRepository->findOneBy(['activationToken' => $token]);
         if ($user === false) {
             throw $this->createNotFoundException("Cet utilisateur n'existe pas.");
         }

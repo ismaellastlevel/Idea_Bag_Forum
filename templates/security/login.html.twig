@@ -50,10 +50,13 @@
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}"
         >
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me" name="_remember_me"> Se souvenir
-            </label>
+        <div class="flexbox flex-column flex-md-row mb-3">
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me" name="_remember_me"> Se souvenir
+                </label>
+            </div>
+            <a class="text-muted hover-primary fs-13 mt-2 mt-md-0" href="{{ path('app_forgotten_password') }}">Mot de passe oublié ?</a>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
         <p class="mt-5 mb-3 text-muted text-center"><a href="{{ path('app_register') }}">S'enregistrer</a></p>

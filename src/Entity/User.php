@@ -79,6 +79,14 @@ class User implements UserInterface
      */
     private $activationToken;
 
+    /**
+     * Get reset password token
+     *
+     * @var                       string String.
+     * @ORM\Column(type="string", length=75, nullable=true)
+     */
+    private $resetPasswordToken;
+
 
     /**
      * Get Id User
@@ -269,6 +277,34 @@ class User implements UserInterface
         return $this;
 
     }//end setActivationToken()
+
+
+    /**
+     * Get token
+     *
+     * @return string|null
+     */
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+
+    }//end getResetPasswordToken()
+
+
+    /**
+     * Set token
+     *
+     * @param string|null $resetPasswordToken Set token.
+     *
+     * @return $this
+     */
+    public function setResetPasswordToken(?string $resetPasswordToken): self
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+
+        return $this;
+
+    }//end setResetPasswordToken()
 
 
 }//end class

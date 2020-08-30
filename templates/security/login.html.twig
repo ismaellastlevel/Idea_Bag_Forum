@@ -42,6 +42,11 @@
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
         <label for="inputEmail" class="sr-only">Email ou username</label>
         <input type="text" id="inputEmail" class="form-control" name="email" placeholder="Email ou username" value="{{ last_username }}" required="" autofocus="">

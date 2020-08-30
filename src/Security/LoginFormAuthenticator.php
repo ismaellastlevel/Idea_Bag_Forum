@@ -80,8 +80,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      *
      * @return void
      */
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder
+    ) {
         $this->entityManager    = $entityManager;
         $this->urlGenerator     = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -154,7 +158,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         if ($user->getActivationToken()) {
-            throw new CustomUserMessageAuthenticationException("Vous devez activer votre compte.");
+            throw new CustomUserMessageAuthenticationException('Vous devez activer votre compte.');
         }
 
         return $user;

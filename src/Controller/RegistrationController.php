@@ -76,6 +76,7 @@ class RegistrationController extends AbstractController
                 ]
             );
 
+            $this->addFlash('success', 'Un mail vous a été envoyé pour activer votre compte.');
             return $this->redirectToRoute('app_login');
         }//end if
 
@@ -105,12 +106,13 @@ class RegistrationController extends AbstractController
     {
         $user = $userRepository->findOneBy(['activationToken' => $token]);
         if ($user === false) {
-            throw $this->createNotFoundException("Cet utilisateur n'existe pas.");
+            $this->addFlash('warning', 'Cet utilisateur est introuvable !.');
         }
 
         $user->setActivationToken(null);
         $entityManager->persist($user);
         $entityManager->flush();
+        $this->addFlash('success', 'Votre compte a bien été activé.');
         return $this->redirectToRoute('app_login');
 
     }//end activation()

@@ -63,6 +63,7 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+        $this->addFlash('success', 'Vous êtes maintenant déconnecté !');
         return $this->redirectToRoute('app_login');
 
     }//end logout()
@@ -88,7 +89,7 @@ class SecurityController extends AbstractController
             $data = $form->getData();
             $user = $userRepository->findOneBy(['email' => $data['email']]);
             if ($user === null) {
-                dump('Adresse mail inconnu');
+                $this->addFlash('warning', 'Adresse mail inconnu.');
                 return $this->redirectToRoute('app_forgotten_password');
             }
 
@@ -111,6 +112,7 @@ class SecurityController extends AbstractController
                 'emails/resetPass.html.twig',
                 ['url' => $url]
             );
+            $this->addFlash('success', 'Un mail vous a été envoyé avec les instructions.');
             return $this->redirectToRoute('app_login');
         }//end if
 
@@ -139,6 +141,7 @@ class SecurityController extends AbstractController
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['resetPasswordToken' => $token]);
         if ($user === null) {
+            $this->addFlash('warning', 'Token inconnu !');
             return $this->redirectToRoute('app_login');
         }
 
@@ -146,12 +149,14 @@ class SecurityController extends AbstractController
             $user->setResetPasswordToken(null);
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
             if ($request->request->get('password') !== $request->request->get('confirmPassword')) {
+                $this->addFlash('warning', 'Les mots de passe nne sont pas identiques !');
                 return $this->redirectToRoute('app_reset_password', ['token' => $token]);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
             return $this->redirectToRoute('app_login');
         } else {
             return $this->render(

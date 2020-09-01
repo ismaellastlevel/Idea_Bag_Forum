@@ -2,36 +2,81 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\BaseController;
 use App\Entity\Role;
-use App\Form\RoleFormType;
+use App\Form\Admin\RoleType;
+use App\Manager\UserManager;
 use App\Repository\RoleRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RoleController extends AbstractController
+/**
+ * Class RoleController
+ *
+ * @Route("/admin/roles")
+ */
+class RoleController extends BaseController
 {
     /**
-     * @Route("/administration/roles", name="admin_role_index", methods={"GET","POST"})
-     * @param RoleRepository $roleRepository
-     * @param Request $request
-     * @return Response
+     * @param RoleRepository         $roleRepository
+     * @param HttpFoundation\Request $request
+     *
+     * @return HttpFoundation\Response
+     *
+     * @Route("/", name="admin_role_index", methods={"GET","POST"})
      */
-    public function index(RoleRepository $roleRepository, Request $request)
+    public function index(RoleRepository $roleRepository, HttpFoundation\Request $request)
     {
+        $form = $this->createFormForJsonHandle(
+            RoleType::class,
+            new Role(),
+            [
+                'action' => $this->generateUrl('admin_role_manage'),
+            ]
+        );
+
         return $this->render('admin/role/index.html.twig', [
             'roles' => $roleRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/administration/roles/creation", name="admin_role_create", methods={"POST"})
+     * @Route("/manage", name="admin_role_manage", methods={"POST"})
      */
-    public function create()
+    public function manage(HttpFoundation\Request $request, UserManager $manager)
     {
-        return $this->render('admin/role/create.html.twig', [
-            'controller_name' => 'RoleController',
-        ]);
+        $data = $request->request->get('role');
+        $form = $this->createFormForJsonHandle(
+            RoleType::class,
+            new Role(),
+            [
+                'action' => $this->generateUrl('admin_role_manage'),
+            ]
+        );
+        $form->submit($data);
+
+        $error = false;
+        $message = null;
+
+        if($form->isValid()) {
+            $role = $form->getData();
+            $manager->persistEntity($role, true);
+
+            $message = 'Action enregistrée avec succès';
+        } else {
+            $error = true;
+            $message = 'Formulaire invalide, veuillez vérifier les données saisies';
+        }
+
+        return new HttpFoundation\JsonResponse(
+            [
+                'error' => $error,
+                'message' => $message,
+            ],
+            200
+        );
+
     }
 }

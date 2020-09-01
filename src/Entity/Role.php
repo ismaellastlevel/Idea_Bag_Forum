@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use App\Helper\TimestampTrait;
 use App\Repository\RoleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RoleRepository::class)
  */
 class Role
 {
+    use TimestampTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -18,12 +22,14 @@ class Role
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $label;
 
@@ -31,11 +37,6 @@ class Role
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
 
     public function getId(): ?int
     {
@@ -74,18 +75,6 @@ class Role
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }

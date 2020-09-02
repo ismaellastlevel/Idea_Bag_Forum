@@ -13,7 +13,9 @@ class BaseController extends AbstractController
 
     public function createFormForJsonHandle($formType, $entity = [], $options = [])
     {
-        return $this->createForm($formType, $entity, $options);
+        $form = $this->createForm($formType, $entity, $options);
+
+        return $form;
     }
 
     public function getFormJsonData(HttpFoundation\Request $request, $fetchAssoc = false)

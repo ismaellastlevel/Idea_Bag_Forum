@@ -10,15 +10,33 @@
 
 namespace App\Helper;
 
+use App\Repository\RoleRepository;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Trait TimestampTrait
  */
 trait TimestampTrait
 {
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
     private $createdAt;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
     private $updatedAt;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
     private $deletedAt;
 
     /**
@@ -30,11 +48,14 @@ trait TimestampTrait
     }
 
     /**
-     * @param mixed $createdAt
+     * @param \DateTime $createdAt
+     * @return $this
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -46,11 +67,14 @@ trait TimestampTrait
     }
 
     /**
-     * @param mixed $updatedAt
+     * @param \DateTime $updatedAt
+     * @return $this
      */
-    public function setUpdatedAt($updatedAt): void
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
     /**
@@ -62,10 +86,13 @@ trait TimestampTrait
     }
 
     /**
-     * @param mixed $deletedAt
+     * @param \DateTime|null $deletedAt
+     * @return $this
      */
-    public function setDeletedAt($deletedAt): void
+    public function setDeletedAt(\DateTime $deletedAt = null): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 }

@@ -31,7 +31,15 @@
             data: data,
             success: function(data) {
                 console.log(data);
+                if (false === data['error']) {
+                    location.href = location.href;
+                }
             },
         });
     });
 })(jQuery);
+
+function msg(message) {
+    document.getElementById('message').innerHTML = message;
+
+}

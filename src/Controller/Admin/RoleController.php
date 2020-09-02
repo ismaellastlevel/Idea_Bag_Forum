@@ -8,8 +8,10 @@ use App\Form\Admin\RoleType;
 use App\Manager\UserManager;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class RoleController
@@ -45,23 +47,27 @@ class RoleController extends BaseController
     /**
      * @Route("/manage", name="admin_role_manage", methods={"POST"})
      */
-    public function manage(HttpFoundation\Request $request, UserManager $manager)
+    public function manage(HttpFoundation\Request $request, UserManager $manager, ValidatorInterface $validator)
     {
         $data = $request->request->get('role');
+        $role = new Role();
         $form = $this->createFormForJsonHandle(
             RoleType::class,
-            new Role(),
+            $role,
             [
                 'action' => $this->generateUrl('admin_role_manage'),
             ]
         );
         $form->submit($data);
 
+//        $errors = $this->getErrorsFromFormArray($form);
+        $errors = $validator->validate($role);
+
         $error = false;
         $message = null;
 
+        $role = $form->getData();
         if($form->isValid()) {
-            $role = $form->getData();
             $manager->persistEntity($role, true);
 
             $message = 'Action enregistrée avec succès';
@@ -74,9 +80,28 @@ class RoleController extends BaseController
             [
                 'error' => $error,
                 'message' => $message,
+                'error_message_form' => $errors,
             ],
             200
         );
+    }
 
+    private function getErrorsFromFormArray(FormInterface $form)
+    {
+        $errors = [];
+
+        foreach ($form->all() as $child) {
+            $errors = array_merge(
+                $errors,
+                $this->getErrorsFromFormArray($child)
+            );
+        }
+
+        foreach ($form->getErrors() as $error) {
+            $errors[$error->getCause()->getPropertyPath()] = $error->getMessage();
+        }
+        dump($errors);
+
+        return $errors;
     }
 }

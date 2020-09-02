@@ -5,14 +5,16 @@ namespace App\Entity;
 use App\Helper\TimestampTrait;
 use App\Repository\RoleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RoleRepository::class)
+ * @UniqueEntity(fields={"code"}, message="Ce code existe déjà.")
  */
 class Role
 {
-    use TimestampTrait;
+//    use TimestampTrait;
 
     /**
      * @ORM\Id()

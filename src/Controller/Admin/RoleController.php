@@ -60,18 +60,19 @@ class RoleController extends BaseController
         );
         $form->submit($data);
 
-//        $errors = $this->getErrorsFromFormArray($form);
-        $errors = $validator->validate($role);
-
         $error = false;
-        $message = null;
+        $errorsBag = [];
+        $message = 'Action enregistrée avec succès';
 
-        $role = $form->getData();
         if($form->isValid()) {
-            $manager->persistEntity($role, true);
-
-            $message = 'Action enregistrée avec succès';
+            try {
+                $manager->persistEntity($role, true);
+            } catch (\Exception $e) {
+                $message = 'Erreur sustème' . $e->getMessage();
+                $error = true;
+            }
         } else {
+            $errorsBag = $this->getErrorMessagesFromAjaxForm($form);
             $error = true;
             $message = 'Formulaire invalide, veuillez vérifier les données saisies';
         }
@@ -80,7 +81,7 @@ class RoleController extends BaseController
             [
                 'error' => $error,
                 'message' => $message,
-                'error_message_form' => $errors,
+                'error_message_form' => $errorsBag,
             ],
             200
         );

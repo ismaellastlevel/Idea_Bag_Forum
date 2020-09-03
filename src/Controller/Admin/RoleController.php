@@ -68,7 +68,7 @@ class RoleController extends BaseController
             try {
                 $manager->persistEntity($role, true);
             } catch (\Exception $e) {
-                $message = 'Erreur sustème' . $e->getMessage();
+                $message = 'Erreur système' . $e->getMessage();
                 $error = true;
             }
         } else {

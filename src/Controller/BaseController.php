@@ -48,7 +48,7 @@ class BaseController extends AbstractController
 
         foreach ($errorsBag as $error) {
             /** @var ConstraintViolation $error  */
-            $errors[$form->getName() . '.' . $error->getPropertyPath()] = $this->sc->translate($error->getMessage());
+            $errors[$form->getName() . '_' . $error->getPropertyPath()] = $this->sc->translate($error->getMessage());
         }
 
         return $errors;

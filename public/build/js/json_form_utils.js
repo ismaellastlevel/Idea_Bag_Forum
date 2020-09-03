@@ -31,8 +31,10 @@
             data: data,
             success: function(data) {
                 console.log(data);
-                if (false === data['error']) {
-                    location.href = location.href;
+                if (false === data.error) {
+                    msg(data.message);
+                } else {
+                    msg(data.message)
                 }
             },
         });

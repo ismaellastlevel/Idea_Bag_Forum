@@ -30,18 +30,27 @@
             url: url,
             data: data,
             success: function(data) {
-                console.log(data);
-                if (false === data.error) {
-                    msg(data.message);
+                let className = (true === data.error) ? 'danger' : 'success';
+
+                if (true === data.error) {
+                    form.find('.modal-body').first().prepend(createALert(className, data.message));
+
+                    for (let name in data.error_message_form) {
+                        $('#'+name).after('<span class="text-danger">'+ data.error_message_form[name] +'</span>')
+                    }
                 } else {
-                    msg(data.message)
+                    $('#message').append(createALert(className, data.message));
                 }
             },
         });
     });
 })(jQuery);
 
-function msg(message) {
-    document.getElementById('message').innerHTML = message;
+function createALert(className, message) {
+    let str = '<div class="alert alert-'+className+'">'+message+
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+        '<span aria-hidden="true">&times;</span>' +
+        '</button></div>';
 
+    return str;
 }

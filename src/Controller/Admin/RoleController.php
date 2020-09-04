@@ -10,7 +10,11 @@ use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -40,7 +44,7 @@ class RoleController extends BaseController
 
         return $this->render('admin/role/index.html.twig', [
             'roles' => $roleRepository->findAll(),
-            'form' => $form->createView(),
+            'formNewRoleAjax' => $form->createView(),
         ]);
     }
 
@@ -85,6 +89,28 @@ class RoleController extends BaseController
             ],
             200
         );
+    }
+
+    /**
+     * @Route("/{id}", name="admin_role_fetch", methods={"GET"})
+     */
+    public function fetchRole(HttpFoundation\Request $request, int $id)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $role = $em->getRepository(Role::class)->findBy([
+                'id' => $id
+            ]);
+            if ($role) {
+                return $this->json(
+                    [
+                        'role' => $role
+                    ],
+                    200, []);
+            }
+            return new JsonResponse("No feedback for this role yet, Be the first ");
+        }
+        return new JsonResponse("This function is only available in AJAX");
     }
 
     private function getErrorsFromFormArray(FormInterface $form)

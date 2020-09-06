@@ -119,6 +119,20 @@ class BaseManager
 
 
     /**
+     * Fetch one entity from the database by id
+     *
+     * @param object $entity
+     * @param int $id
+     *
+     * @return object|null
+     */
+    public function fetchOneEntityById($entityName, int $id)
+    {
+        return $this->em->getRepository($entityName)->findOneBy(['id' => $id]);
+    }
+
+
+    /**
      * Render not found error
      *
      * @param string|null $message Message of the error.

@@ -27,7 +27,8 @@ class RoleType extends AbstractType
             ])
             ->add('id', Type\HiddenType::class, [
                 'required' => false,
-                'label' => false
+                'label' => false,
+                'mapped' => false
             ])
         ;
     }

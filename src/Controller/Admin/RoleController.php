@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Controller\BaseController;
 use App\Entity\Role;
 use App\Form\Admin\RoleType;
+use App\Manager\RoleManager;
 use App\Manager\UserManager;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
@@ -51,10 +52,16 @@ class RoleController extends BaseController
     /**
      * @Route("/manage", name="admin_role_manage", methods={"POST"})
      */
-    public function manage(HttpFoundation\Request $request, UserManager $manager, ValidatorInterface $validator)
+    public function manage(HttpFoundation\Request $request, RoleManager $manager)
     {
         $data = $request->request->get('role');
-        $role = new Role();
+        $role = $manager->getOneRoleById((int) $data['id']);
+
+        // Si le role n'éxiste pas, on créer une nouvelle instance pour réaliser un insert.
+        if (!$role) {
+            $role = new Role();
+        }
+
         $form = $this->createFormForJsonHandle(
             RoleType::class,
             $role,

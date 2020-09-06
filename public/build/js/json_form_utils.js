@@ -61,6 +61,7 @@ btnEdits.forEach(function (btnEdit) {
                 $('#role_code').val(data.role[0].code);
                 $('#role_label').val(data.role[0].label);
                 $('#role_description').val(data.role[0].description);
+                $('#role_id').val(data.role[0].id);
                 // roleDescription.value = data.role[0].description;
             }
         };

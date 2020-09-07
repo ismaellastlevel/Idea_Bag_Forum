@@ -30,13 +30,15 @@
             url: url,
             data: data,
             success: function(data) {
+                $('.removeDataMsg').remove();
                 let className = (true === data.error) ? 'danger' : 'success';
 
                 if (true === data.error) {
+                    $('.removeDataErrorMsgForm').remove();
                     form.find('.modal-body').first().prepend(createALert(className, data.message));
 
                     for (let name in data.error_message_form) {
-                        $('#'+name).after('<span class="text-danger">'+ data.error_message_form[name] +'</span>');
+                        $('#'+name).after('<span class="text-danger removeDataErrorMsgForm">'+ data.error_message_form[name] +'</span>');
                     }
                 } else {
                     $('#message').append(createALert(className, data.message));
@@ -74,7 +76,7 @@ btnEdits.forEach(function (btnEdit) {
 })
 
 function createALert(className, message) {
-    let str = '<div class="alert alert-'+className+'">'+message+
+    let str = '<div class="removeDataMsg alert alert-'+className+'">'+message+
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
         '<span aria-hidden="true">&times;</span>' +
         '</button></div>';

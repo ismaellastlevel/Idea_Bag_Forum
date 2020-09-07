@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Controller\BaseController;
 use App\Entity\Role;
 use App\Form\Admin\RoleType;
+use App\Manager\BaseManager;
 use App\Manager\RoleManager;
 use App\Manager\UserManager;
 use App\Repository\RoleRepository;
@@ -99,7 +100,7 @@ class RoleController extends BaseController
     }
 
     /**
-     * @Route("/{id}", name="admin_role_fetch", methods={"GET"})
+     * @Route("/{id}", name="admin_role_fetch", methods={"GET"}, defaults={"id"=0}, requirements={"id"="\d+|__ID__"})
      */
     public function fetchRole(HttpFoundation\Request $request, int $id)
     {
@@ -118,6 +119,36 @@ class RoleController extends BaseController
             return new JsonResponse("No feedback for this role yet, Be the first ");
         }
         return new JsonResponse("This function is only available in AJAX");
+    }
+
+    /**
+     * @Route("/{id}", name="admin_role_delete", methods={"DELETE"}, defaults={"id"=0}, requirements={"id"="\d+|__ID__"})
+     * @param Role $role
+     * @return JsonResponse
+     */
+    public function delete(Role $role, BaseManager $manager, HttpFoundation\Request $request)
+    {
+        $error = false;
+        $message = "Role supprimé";
+
+        if ($request->isXmlHttpRequest()) {
+            if ($role) {
+                try {
+                    $manager->removeEntity($role, true);
+                } catch (\Exception $e) {
+                    $message = 'Erreur système' . $e->getMessage();
+                    $error = true;
+                }
+                return new JsonResponse(
+                    [
+                        'error' => $error,
+                        'message' => $message
+                    ]
+                );
+            }
+        }
+
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
 
     private function getErrorsFromFormArray(FormInterface $form)

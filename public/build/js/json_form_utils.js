@@ -50,6 +50,7 @@
 
 let xhr = new XMLHttpRequest();
 let btnEdits = document.querySelectorAll("#edit");
+let btnDeletes = document.querySelectorAll("#delete");
 
 btnEdits.forEach(function (btnEdit) {
     let url = showUrl.replace('__ID__', btnEdit.dataset.id);
@@ -72,6 +73,34 @@ btnEdits.forEach(function (btnEdit) {
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         xhr.send();
+    })
+})
+
+btnDeletes.forEach(function (btnDelete) {
+    let url = deleteId.replace('__ID__', btnDelete.dataset.id);
+    let btnDel = document.querySelector(".btnDelete");
+    btnDelete.addEventListener('click', function (event) {
+        event.preventDefault();
+        $('#deleteRole').modal('show');
+        btnDel.addEventListener('click', function (event) {
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+                    let data = JSON.parse(xhr.response);
+                    let className = (true === data.error) ? 'danger' : 'success';
+
+                    if (true === data.error) {
+                        $('#message').append(createALert(className, data.message));
+                    } else {
+                        $('#message').append(createALert(className, data.message));
+                    }
+                }
+            };
+
+            xhr.open("DELETE", url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            xhr.send();
+        })
     })
 })
 

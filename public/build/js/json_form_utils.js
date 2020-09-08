@@ -69,7 +69,7 @@ btnEdits.forEach(function (btnEdit) {
             }
         };
 
-        xhr.open("GET", url, true);
+        xhr.open("POST", url, true);
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         xhr.send();

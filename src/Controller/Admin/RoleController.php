@@ -100,7 +100,7 @@ class RoleController extends BaseController
     }
 
     /**
-     * @Route("/{id}", name="admin_role_fetch", methods={"GET"}, defaults={"id"=0}, requirements={"id"="\d+|__ID__"})
+     * @Route("/{id}", name="admin_role_fetch", methods={"GET","POST"}, defaults={"id"=0}, requirements={"id"="\d+|__ID__"})
      */
     public function fetchRole(HttpFoundation\Request $request, int $id)
     {

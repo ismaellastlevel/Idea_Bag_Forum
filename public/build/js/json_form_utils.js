@@ -49,27 +49,27 @@
 })(jQuery);
 
 let xhr = new XMLHttpRequest();
-let btnEdits = document.querySelectorAll("#edit");
-let btnDeletes = document.querySelectorAll("#delete");
+let btnEdits = document.querySelectorAll(".edit");
+let btnDeletes = document.querySelectorAll(".delete");
 
 btnEdits.forEach(function (btnEdit) {
     let url = showUrl.replace('__ID__', btnEdit.dataset.id);
     btnEdit.addEventListener('click', function (event) {
-        // const roleDescription = document.querySelector('#role_description');
         event.preventDefault();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
                 let data = JSON.parse(xhr.response);
-                $('#addNewRole').modal('show');
-                $('#role_code').val(data.role[0].code);
-                $('#role_label').val(data.role[0].label);
-                $('#role_description').val(data.role[0].description);
-                $('#role_id').val(data.role[0].id);
-                // roleDescription.value = data.role[0].description;
+                $('#manageModal').modal('show');
+
+                for (let nameForm in data) {
+                    for (let inputName in data[nameForm]) {
+                        $('#' + nameForm + '_' + inputName).val(data[nameForm][inputName]);
+                    }
+                }
             }
         };
 
-        xhr.open("POST", url, true);
+        xhr.open("GET", url, true);
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         xhr.send();
@@ -81,7 +81,7 @@ btnDeletes.forEach(function (btnDelete) {
     let btnDel = document.querySelector(".btnDelete");
     btnDelete.addEventListener('click', function (event) {
         event.preventDefault();
-        $('#deleteRole').modal('show');
+        $('#deleteModal').modal('show');
         btnDel.addEventListener('click', function (event) {
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {

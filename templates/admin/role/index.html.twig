@@ -25,8 +25,8 @@
                             <td>{{ role.label }}</td>
                             <td>{{ role.description }}</td>
                             <td>
-                                <a href="#" id="edit" data-id="{{ role.id }}">Edit</a>
-                                <a href="#" id="delete" data-id="{{ role.id }}">Delete</a>
+                                <a href="javascript:void(0);" class="edit" data-id="{{ role.id }}">Edit</a>
+                                <a href="javascript:void(0);" class="delete" data-id="{{ role.id }}">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -38,8 +38,8 @@
             </div>
         {% endif %}
     </div>
-    {% include 'partials/modals/admin/newRole.html.twig' %}
-    {% include 'partials/modals/admin/deleteRole.html.twig' %}
+    {% include 'partials/modals/manage_modal.html.twig' %}
+    {% include 'partials/modals/delete_modal.html.twig' %}
 {% endblock %}
 
 {% block specific_javascripts %}

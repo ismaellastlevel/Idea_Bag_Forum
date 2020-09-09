@@ -1,7 +1,7 @@
-<div class="modal fade" id="addNewRole" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade manageModal" id="manageModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            {{ form_start(formNewRoleAjax, { 'attr': { 'class': 'json-form', 'enctype': 'multipart/form-data' } }) }}
+            {{ form_start(formAjax, { 'attr': { 'class': 'json-form', 'enctype': 'multipart/form-data' } }) }}
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {% set formChildren = formNewRoleAjax.children %}
+                {% set formChildren = formAjax.children %}
                 {% for input in formChildren %}
                     {% if input.vars.name not in ['_token'] %}
                         <div class="form-group">
@@ -21,9 +21,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" role="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-                <button type="submit" role="button" class="btn btn-outline-success" formnovalidate>Save</button>
+                <button type="submit" role="button" class="btn btn-outline-success">Save</button>
             </div>
-            {{ form_end(formNewRoleAjax) }}
+            {{ form_end(formAjax) }}
         </div>
     </div>
 </div>

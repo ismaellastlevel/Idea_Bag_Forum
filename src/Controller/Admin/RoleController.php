@@ -46,7 +46,7 @@ class RoleController extends BaseController
 
         return $this->render('admin/role/index.html.twig', [
             'roles' => $roleRepository->findAll(),
-            'formNewRoleAjax' => $form->createView(),
+            'formAjax' => $form->createView(),
         ]);
     }
 
@@ -100,13 +100,12 @@ class RoleController extends BaseController
     }
 
     /**
-     * @Route("/{id}", name="admin_role_fetch", methods={"GET","POST"}, defaults={"id"=0}, requirements={"id"="\d+|__ID__"})
+     * @Route("/{id}", name="admin_role_fetch", methods={"GET"}, defaults={"id"=0}, requirements={"id"="\d+|__ID__"})
      */
-    public function fetchRole(HttpFoundation\Request $request, int $id)
+    public function fetchRole(HttpFoundation\Request $request, RoleRepository $repository, int $id)
     {
         if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-            $role = $em->getRepository(Role::class)->findBy([
+            $role = $repository->findOneBy([
                 'id' => $id
             ]);
             if ($role) {

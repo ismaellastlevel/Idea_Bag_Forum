@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}S'enregistrer{% endblock %}
+{% block title %}{% trans %}Register{% endtrans %}{% endblock %}
 
 {% block stylesheets %}
     <style>
@@ -41,7 +41,7 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
     {{ form_start(registrationForm, {'attr': {'class': 'form-signin text-center'}}) }}
-        <h1 class="h3 mb-3 font-weight-normal">S'enregistrer</h1>
+        <h1 class="h3 mb-3 font-weight-normal">{% trans %}Register{% endtrans %}</h1>
         {{ form_widget(registrationForm.username) }}
         {{ form_widget(registrationForm.email) }}
         {{ form_widget(registrationForm.plainPassword.first) }}
@@ -51,7 +51,7 @@
                 {{ form_row(registrationForm.agreeTerms) }}
             </label>
         </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block">S'enregistrer</button>
-        <p class="mt-5 mb-3 text-muted text-center"><a href="{{ path('app_login') }}">Se connecter</a></p>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">{% trans %}Register{% endtrans %}</button>
+        <p class="mt-5 mb-3 text-muted text-center"><a href="{{ path('app_login') }}">{% trans %}Login{% endtrans %}</a></p>
     {{ form_end(registrationForm) }}
 {% endblock %}

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="1StLGFK" resname="There is no role yet">
+        <source>There is no role yet</source>
+        <target>Il n'y a pas encore de rôle</target>
+      </trans-unit>
+      <trans-unit id="DmY3P0X" resname="Label">
+        <source>Label</source>
+        <target>Label</target>
+      </trans-unit>
+      <trans-unit id="NZgm_Tx" resname="Add new role">
+        <source>Add new role</source>
+        <target>Ajouter un nouveau rôle</target>
+      </trans-unit>
+      <trans-unit id="30RYmS8" resname="Coded">
+        <source>Coded</source>
+        <target>Code</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="ZM.xMZ0" resname="Action">
+        <source>Action</source>
+        <target>Action</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Éditer</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>Les rôles</target>
+      </trans-unit>
+      <trans-unit id="TwRTdJX" resname="Remove this role">
+        <source>Remove this role</source>
+        <target>Supprimer ce rôle</target>
+      </trans-unit>
+      <trans-unit id="eEIg0NU" resname="Are you sure you want to remove this role ?">
+        <source>Are you sure you want to remove this role ?</source>
+        <target>Êtes-vous sûr de vouloir supprimer ce rôle ?</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Annuler</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>Sauvegarder</target>
+      </trans-unit>
+      <trans-unit id="G2A4r0u" resname="Edit this role">
+        <source>Edit this role</source>
+        <target>Modifier ce rôle</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>S'enregistrer</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target>Réinitialiser le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="PdnfREH" resname="New password">
+        <source>New password</source>
+        <target>Nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="bJUZXyP" resname="Confirm your new password">
+        <source>Confirm your new password</source>
+        <target>Confirmer votre nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="vpSdFL4" resname="Validate password">
+        <source>Validate password</source>
+        <target>Valider le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="yI4Liyx" resname="Address mail or username">
+        <source>Address mail or username</source>
+        <target>Adresse mail ou username</target>
+      </trans-unit>
+      <trans-unit id="gJanvZo" resname="Remember">
+        <source>Remember</source>
+        <target>Se souvenir</target>
+      </trans-unit>
+      <trans-unit id="a7FhNlK" resname="Forgot your password">
+        <source>Forgot your password</source>
+        <target>Mot de passe oublié</target>
+      </trans-unit>
+      <trans-unit id="whrhwDS" resname="You will receive by email the instructions to reset your password">
+        <source>You will receive by email the instructions to reset your password</source>
+        <target>Vous allez recevoir par mail les instructions pour réinitialiser votre mot de passe</target>
+      </trans-unit>
+      <trans-unit id="wXgrr7E" resname="Your address mail">
+        <source>Your address mail</source>
+        <target>Votre adresse mail</target>
+      </trans-unit>
+      <trans-unit id="1U2VtT." resname="Return to the home page">
+        <source>Return to the home page</source>
+        <target>Revenir à la page d’accueil</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="JQVN.nv" resname="Action saved successfully">
+        <source>Action saved successfully</source>
+        <target>Action enregistrée avec succès</target>
+      </trans-unit>
+      <trans-unit id="qKWNdaq" resname="Invalid form, please check the data entered">
+        <source>Invalid form, please check the data entered</source>
+        <target>Formulaire invalide, veuillez vérifier les données saisies</target>
+      </trans-unit>
+      <trans-unit id="uARsmPY" resname="The role has been deleted">
+        <source>The role has been deleted</source>
+        <target>Le rôle a bien été supprimé</target>
+      </trans-unit>
+      <trans-unit id="Du4gNaA" resname="emails could not be found">
+        <source>emails could not be found</source>
+        <target>Cet email n'a pas été trouvé</target>
+      </trans-unit>
+      <trans-unit id="cQv_BBB" resname="You must activate your account">
+        <source>You must activate your account</source>
+        <target>Vous devez activer votre compte</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

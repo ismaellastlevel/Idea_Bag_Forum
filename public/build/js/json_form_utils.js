@@ -82,7 +82,7 @@ btnDeletes.forEach(function (btnDelete) {
     btnDelete.addEventListener('click', function (event) {
         event.preventDefault();
         $('#deleteModal').modal('show');
-        btnDel.addEventListener('click', function (event) {
+        btnDel.addEventListener('click', function () {
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
                     let data = JSON.parse(xhr.response);

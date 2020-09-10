@@ -10,6 +10,7 @@ use App\Manager\RoleManager;
 use App\Manager\UserManager;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
+use App\Utils\ServiceContainer;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,6 +19,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class RoleController
@@ -53,7 +55,7 @@ class RoleController extends BaseController
     /**
      * @Route("/manage", name="admin_role_manage", methods={"POST"})
      */
-    public function manage(HttpFoundation\Request $request, RoleManager $manager)
+    public function manage(HttpFoundation\Request $request, RoleManager $manager, TranslatorInterface $translator)
     {
         $data = $request->request->get('role');
         $role = $manager->getOneRoleById((int) $data['id']);
@@ -74,7 +76,7 @@ class RoleController extends BaseController
 
         $error = false;
         $errorsBag = [];
-        $message = 'Action enregistrée avec succès';
+        $message = $translator->trans('Action saved successfully');
 
         if($form->isValid()) {
             try {
@@ -86,7 +88,7 @@ class RoleController extends BaseController
         } else {
             $errorsBag = $this->getErrorMessagesFromAjaxForm($form);
             $error = true;
-            $message = 'Formulaire invalide, veuillez vérifier les données saisies';
+            $message = $translator->trans('Invalid form, please check the data entered');
         }
 
         return new HttpFoundation\JsonResponse(
@@ -125,10 +127,10 @@ class RoleController extends BaseController
      * @param Role $role
      * @return JsonResponse
      */
-    public function delete(Role $role, BaseManager $manager, HttpFoundation\Request $request)
+    public function delete(Role $role, BaseManager $manager, HttpFoundation\Request $request, TranslatorInterface $translator)
     {
         $error = false;
-        $message = "Role supprimé";
+        $message = $translator->trans('The role has been deleted');
 
         if ($request->isXmlHttpRequest()) {
             if ($role) {

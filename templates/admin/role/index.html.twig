@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les rôles{% endblock %}
+{% block title %}{% trans %}Roles{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="col-md-8 mx-auto">
         <div id="message"></div>
-        <button type="button" class="btn btn-outline-secondary mb-3" data-toggle="modal" data-target="#manageModal">Ajouter un rôle</button>
+        <button type="button" class="btn btn-outline-secondary mb-3" data-toggle="modal" data-target="#manageModal">{% trans %}Add new role{% endtrans %}</button>
         {% if roles %}
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Code</th>
-                    <th scope="col">Label</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">{% trans %}Coded{% endtrans %}</th>
+                    <th scope="col">{% trans %}Label{% endtrans %}</th>
+                    <th scope="col">{% trans %}Description{% endtrans %}</th>
+                    <th scope="col">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,8 +25,8 @@
                             <td>{{ role.label }}</td>
                             <td>{{ role.description }}</td>
                             <td>
-                                <a href="javascript:void(0);" class="edit" data-id="{{ role.id }}">Edit</a>
-                                <a href="javascript:void(0);" class="delete" data-id="{{ role.id }}">Delete</a>
+                                <a href="javascript:void(0);" class="edit" data-id="{{ role.id }}">{% trans %}Edit{% endtrans %}</a>
+                                <a href="javascript:void(0);" class="delete" data-id="{{ role.id }}">{% trans %}Delete{% endtrans %}</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -34,7 +34,7 @@
             </table>
         {% else %}
             <div class="alert alert-warning" role="alert">
-                Pas de rôle
+                {% trans %}There is no role yet{% endtrans %}
             </div>
         {% endif %}
     </div>

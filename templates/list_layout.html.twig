@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block specific_stylesheets_libs %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/> {# v 1.10.18 #}
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/Buttons-1.5.4/css/buttons.dataTables.min.css') }}"/> {# v 1.5.4 #}
+{% endblock %}
+
+{% block specific_javascript_libs %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script> {# v 1.10.18 #}
+    <script type="text/javascript" src="{{ asset('datatables/Buttons-1.5.4/js/dataTables.buttons.min.js') }}"></script> {# v 1.5.4 #}
+    <script type="text/javascript" src="{{ asset('datatables/Buttons-1.5.4/js/buttons.colVis.min.js') }}"></script> {# v 1.5.4 #}
+{% endblock %}
+
+{% block specific_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/custom/datatables.css') }}" />
+{% endblock %}
+
+{% block content %}
+    {% block filters_container %}
+        <div class="accordion" id="filters">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">{{ 'filters.title' | trans }}</h5>
+                </div>
+
+                <div class="card-body bg-om-muted">
+                    <div class="row">
+                        {% block filters %}{% endblock %}
+                    </div>
+                    <div id="filters-inputs" class="row collapse" aria-labelledby="filters-head" data-parent="#filters">
+                        {% block other_filters %}{% endblock %}
+                    </div>
+                    <div class="row mt-2">
+                        <div class="offset-sm-6 col-sm-6"><div class="float-right">
+                                <button id="clear-all" class="cancel_filters btn btn-danger mb-1">
+                                    <i class="fa fa-times-circle"></i> {{ 'list.cancel_filters'| trans }}
+                                </button>
+                                <button id="search-all" class="btn btn-info mb-1">
+                                    <i class="fa fa-search"></i> {{ 'list.search_title'| trans }}
+                                </button>
+                            </div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block extra_action %}
+        <div class="row mt-4">
+            <div class="actions-btn col-12"><div class="float-right">
+                    <a class="btn btn-success" href="{{ create_link is defined ? create_link : '#' }}">
+                        <i class="fa fa-plus-circle"></i> {{ 'btn_action.create' | trans }}
+                    </a>
+                </div></div>
+        </div>
+    {% endblock extra_action %}
+
+    <table class="dtTable table table-striped table-bordered display responsive nowrap" width="100%">
+        <thead>
+        <tr>
+            {% block table_header %}{% endblock %}
+        </tr>
+        </thead>
+    </table>
+{% endblock %}
+
+{% block specific_javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script> {# v 1.10.18 #}
+{% endblock %}

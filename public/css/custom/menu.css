@@ -1,0 +1,74 @@
+nav.navbar {
+    background-color: #56519D;
+}
+
+#subMenu .navbar-nav {
+    margin-left: 49px!important;
+}
+
+.nav-item:not(.sub-menu-item) {
+    font-size: 20px;
+}
+
+.nav-item.sub-menu-item {
+    background-color: #56519D;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+.nav-item a, .navbar-text a {
+    color: inherit !important;
+    text-decoration: none;
+}
+
+.navbar-text:hover, .navbar-text:focus {
+    color:#56519D
+}
+
+.nav-item.active, .nav-item:hover {
+    color: #56519D;
+    font-weight: bold;
+}
+
+.nav-item.sub-menu-item.active, .nav-item.sub-menu-item:hover {
+    background-color: #746FB7 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.navbar .dropdown-menu {
+    margin-top: 0;
+    border-color: #56519D;
+    color: #56519D;
+}
+
+.navbar .dropdown-menu .dropdown-item:focus, .navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #746FB7;
+    color: #fff !important;
+}
+
+.navbar-toggler {
+    margin-left: 90%;
+}
+
+.navbar-collapse {
+    text-align: right;
+}
+
+.menu-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;    
+}
+
+@media (min-width: 992px) {
+    .menu-logo img {
+        max-height: 86px;
+    }
+}
+@media (max-width: 991px) {
+    .menu-logo img {
+        max-height: 85px;
+    }
+}
+

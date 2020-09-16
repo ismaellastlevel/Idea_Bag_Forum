@@ -1,0 +1,37 @@
+.accordion .card:first-of-type  {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-header #filters-head {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: underline;
+}
+
+.dtTable th:before, table th:after {
+    bottom: 0.6em !important;
+}
+
+.dt-buttons {
+    float: none !important;
+    display: block;
+}
+
+.dt-button-collection {
+    width: auto !important;
+}
+
+.dt-button.dropdown-item.buttons-columnVisibility {
+    color:#fff;
+    background: #4688E3 !important;
+    border-color: #4688E3 !important;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: none !important;
+}
+
+.dt-button.dropdown-item.buttons-columnVisibility:not(.active) {
+    background: #fff !important;
+    border-color: #C5C8CD !important;
+    color: #C5C8CD
+}

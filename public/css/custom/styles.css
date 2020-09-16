@@ -1,0 +1,217 @@
+.text-om-danger,  .text-om-danger:hover {
+    color: #ED4044 !important;
+}
+.text-om-danger-alt, .text-om-danger-alt:hover {
+    color: #E64245 !important;
+}
+
+.text-om-secondary, .text-om-secondary:hover {
+    color: #49505B !important;
+}
+
+.text-om-light, .text-om-light:hover {
+    color: #F8F8F9 !important;
+}
+
+.text-om-muted, .text-om-muted:hover {
+    color: #C5C8CD !important;
+}
+
+.text-om-success, .text-om-success:hover {
+    color: #19A972 !important;
+}
+
+.text-om-title, .text-om-title:hover {
+    color: #56519D !important;
+}
+
+.text-om-primary, .text-om-primary:hover {
+    color: #4688E3 !important;
+}
+
+.text-om-warning, .text-om-warning:hover {
+    color: #F6AD2A !important;
+}
+.text-om-warning-alt, .text-om-warning-alt:hover {
+    color: #EB6628 !important;
+}
+
+.bg-om-danger {
+    background-color: #ED4044 !important;
+}
+.bg-om-danger-alt {
+    background-color: #E64245 !important;
+}
+
+.bg-om-secondary {
+    background-color: #49505B !important;
+}
+
+.bg-om-light {
+    background-color: #F8F8F9 !important;
+}
+
+.bg-om-muted {
+    background-color: #C5C8CD !important;
+}
+
+.bg-om-default {
+    background-color: #fff !important;
+}
+
+.bg-om-primary {
+    background-color: #4688E3 !important;
+}
+
+.bg-om-success {
+    background-color: #19A972 !important;
+}
+
+.bg-om-warning {
+    background-color: #F6AD2A !important;
+}
+.bg-om-warning-alt {
+    background-color: #EB6628 !important;
+}
+
+.btn:hover {
+    filter: brightness(85%);
+}
+
+.border-om-primary {
+    border-color: #4688E3 !important;
+}
+
+.border-om-secondary {
+    border-color: #49505B !important;
+}
+
+table:not(.table-condensed) td {
+    color: #49505B;
+    font-weight: bold;
+}
+
+table:not(.table-condensed) td, table:not(.table-condensed) th {
+    padding: 4px 10px !important;
+}
+
+table:not(.table-condensed) thead > tr {
+    background-color: #49505B;
+    color: #fff;   
+} 
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid #d2d4d7;
+}
+
+.table-condensed {
+    width: 240px;
+}
+
+.table-row-link {
+    cursor: pointer;
+}
+
+.scroll-y-table {
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.scroll-y {
+    overflow-y: auto;
+}
+
+form label {
+    margin-top: .25rem;  
+}
+
+.btn-checkbox {
+    margin-top: .35rem;
+    position: relative;
+    border: 1px solid #49505B;
+    background-color: #fff;
+    width: 20px;
+    height: 20px;
+}
+
+#filters .btn-checkbox {
+    margin-top: .2rem;
+}
+
+.btn-checkbox:hover {
+    filter: brightness(85%);
+}
+
+.btn-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+}
+
+.btn-checkbox .fa {
+    display: none;
+    position: absolute;
+    top: 2px;
+    left: 1px;
+    height: 16px;
+    width: 16px;
+}
+
+.btn-checkbox input[type="checkbox"]:checked ~ .fa {
+    display: block;
+}
+
+.tooltip .tooltip-inner {
+    background: #cce5ff;
+    color: #49505B;
+    max-width: 1000px;
+}
+
+.tooltip .arrow:before {
+    border-top-color: #cce5ff;
+     border-bottom-color: #cce5ff
+}
+
+.collectionTitle .h4 {
+    margin: 0;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #49505B;
+    padding: 0;
+    line-height: 25px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 6px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #49505B transparent transparent transparent;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #49505B transparent;
+}
+
+li.select2-selection__choice {
+    width: 100%;
+    color: #49505B;
+}
+
+span.select2-selection__choice__remove {
+    font-size: large;
+    color: #ED4044 !important;    
+}

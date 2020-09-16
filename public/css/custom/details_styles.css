@@ -1,0 +1,17 @@
+.nav-tabs .nav-link, .nav-tabs .nav-link.active, .nav-tabs .nav-link.disabled, .nav-tabs .nav-link:hover {
+    border-color: #C5C8CD;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
+    background-color: #C5C8CD;
+    color: #49505B;
+}
+
+.nav-tabs .nav-link.disabled {
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
+.nav-item.tab-item {
+    font-size: 17px !important;
+}

@@ -29,14 +29,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RoleController extends BaseController
 {
     /**
-     * @param RoleRepository         $roleRepository
+     * @param RoleManager            $manager
      * @param HttpFoundation\Request $request
      *
      * @return HttpFoundation\Response
      *
-     * @Route("/", name="admin_role_index", methods={"GET","POST"})
+     * @Route(
+     *     "/list.{_format}",
+     *     name="admin_role_index",
+     *     methods={"GET","POST"},
+     *     defaults = {"_format" = "html"}
+     *     )
      */
-    public function index(RoleRepository $roleRepository, HttpFoundation\Request $request)
+    public function index(RoleManager $manager, HttpFoundation\Request $request)
     {
         $form = $this->createFormForJsonHandle(
             RoleType::class,
@@ -46,8 +51,17 @@ class RoleController extends BaseController
             ]
         );
 
+        $format = $request->attributes->get('_format');
+
+
+        if ('json' === $format) {
+            $filters = $request->query->all();
+            $roles = $manager->getRolesList($filters);
+
+            return new HttpFoundation\JsonResponse($roles, 200);
+        }
+
         return $this->render('admin/role/index.html.twig', [
-            'roles' => $roleRepository->findAll(),
             'formAjax' => $form->createView(),
         ]);
     }

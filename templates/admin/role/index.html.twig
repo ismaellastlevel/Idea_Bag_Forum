@@ -1,51 +1,59 @@
-{% extends 'base.html.twig' %}
+{% extends 'list_layout.html.twig' %}
 
-{% block title %}{% trans %}Roles{% endtrans %}{% endblock %}
-
-{% block body %}
-    <div class="col-md-8 mx-auto">
-        <div id="message"></div>
-        <button type="button" class="btn btn-outline-secondary mb-3" data-toggle="modal" data-target="#manageModal">{% trans %}Add new role{% endtrans %}</button>
-        {% if roles %}
-            <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{% trans %}Coded{% endtrans %}</th>
-                    <th scope="col">{% trans %}Label{% endtrans %}</th>
-                    <th scope="col">{% trans %}Description{% endtrans %}</th>
-                    <th scope="col">{% trans %}Action{% endtrans %}</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for role in roles %}
-                        <tr>
-                            <td>{{ role.id }}</td>
-                            <td>{{ role.code }}</td>
-                            <td>{{ role.label }}</td>
-                            <td>{{ role.description }}</td>
-                            <td>
-                                <a href="javascript:void(0);" class="edit" data-id="{{ role.id }}">{% trans %}Edit{% endtrans %}</a>
-                                <a href="javascript:void(0);" class="delete" data-id="{{ role.id }}">{% trans %}Delete{% endtrans %}</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                {% trans %}There is no role yet{% endtrans %}
-            </div>
-        {% endif %}
+{% block filters %}
+    <div class="col-12">
+        <input type="text" name="label" class="form-control" placeholder="{{ 'label'|trans }}">
     </div>
-    {% include 'partials/modals/manage_modal.html.twig' %}
-    {% include 'partials/modals/delete_modal.html.twig' %}
+{% endblock %}
+
+
+{% set create_link_ajax = path('admin_role_manage') %}
+{% set containAjaxForm = true %}
+
+{% block table_header %}
+    <th width="10" data-responsive-priority="0"></th>
+    <th>{{ 'id'| trans }}</th>
+    <th>{{ 'label'| trans }}</th>
+    <th>{{ 'description'| trans }}</th>
+    <th width="20">{{ 'list.actions'| trans }}</th>
 {% endblock %}
 
 {% block specific_javascripts %}
+    {{ parent() }}
+    {% include 'init_datatable_js.html.twig' %}
     <script>
-        const showUrl = "{{ path('admin_role_fetch', {id: "__ID__"}) }}";
-        const deleteId = "{{ path('admin_role_delete', {id: "__ID__"}) }}";
+        var urlAjax ="{{ path('admin_role_index', {'_format': 'json'}) }}";
+        const stateKey = "AdminRole";
+        var editUrl = "{{ path('admin_role_manage', {'id':'__ID__'}) }}";
+        var deleteUrl = "{{ path('admin_role_delete', {'category':'__ID__'}) }}";
+        var dataTableColumns = [
+            {
+                "data": function(){ return '';},
+                "orderable": false,
+                "searchable": false
+            },
+            {
+                "name": "id",
+                "data": "id",
+                "visible": false
+            },
+            {
+                "name": "label",
+                "data": "label"
+            },
+            {
+                "name": "description",
+                "data": "description"
+            },
+            {
+                "data": "id",
+                "orderable": false,
+                "render": function(data, type, row) {
+                    return renderActionColumns(data, type, row);
+                },
+                "className": 'noVis'
+            }
+        ];
+        initDataTable(true);
     </script>
-    <script src="{{ asset('build/js/json_form_utils.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,120 @@
+<div class="loadOverlay" id="loadOverlay">
+    <span>{#{{ 'actionProgress'|trans }}&ensp;#}<img src="{{ asset('images/ajax-loader.gif') }}"></span>
+</div>
+<script>
+    function renderActionColumns(data, type, row) {
+        let actionHtml = '';
+        if (typeof showUrl !== 'undefined' && showUrl != '')
+            actionHtml += '<a class="btn btn-sm text-primary" href="' + showUrl + '"><i class="fa fa-eye"></i></a>';
+        if (typeof editUrl !== 'undefined' && editUrl != '')
+            actionHtml += '<a class="btn btn-sm text-info" href="' + editUrl + '"><i class="fa fa-pencil-alt"></i></a>';
+        if (typeof deleteUrl !== 'undefined' && deleteUrl != '')
+            actionHtml += '<a class="btn btn-sm text-danger" href="' + deleteUrl + '" onclick="return confirm(\'Voulez-vous vraiment supprimer cette entrée ?\')"><i class="fa fa-trash"></i></a>';
+        return actionHtml.replace(/__ID__/g, row.id);
+    }
+    // Attention, cette fonction nécessite une variable "stateKey" qui doit être crée avant l'appel de fonction pour la
+    // sauvegarde des filtres.
+    /**
+     * Init DataTable
+     * @param stateSave
+     * @param title
+     * @param pages
+     */
+    function initDataTable(stateSave, title, pages) {
+        const dataTableAttribute = typeof stateKey !== "undefined" ? stateKey + "-" : "";
+        $('#loadOverlay').show();
+        if (typeof pages == "undefined") {
+            pages = [10, 25, 50, 75, 100]
+        }
+        const oTable = $('.dtTable').DataTable({
+            "language": {
+                "lengthMenu": "_MENU_ lignes par page",
+                "zeroRecords": "Aucune information trouvée",
+                "info": "Page _PAGE_ sur _PAGES_",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "processing": "",
+                "oPaginate": {
+                    "sPrevious": "<i class='fa fa-chevron-left'></i>",
+                    "sNext": "<i class='fa fa-chevron-right'></i>",
+                    "sFirst": "<i class='fa fa-step-backward'></i>",
+                    "sLast": "<i class='fa fa-step-forward'></i>"
+                }
+            },
+            "lengthMenu": pages,
+            "paging": true,
+            "pagingType": "full_numbers",
+            "h": 25,
+            "dom": "<'right-align' i>t<'bottom'<'row'<'col s5 m6'l><'col s7 m6'p>>>",
+            "processing": true,
+            "serverSide": true,
+            responsive: {
+                details: {
+                    type: 'column'
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
+            "ajax": urlAjax,
+            "columns": dataTableColumns, // Défini dans les vues ayant des DataTables
+            "buttons": ['colvis'],
+            "order": typeof defaultOrder !== "undefined" ? defaultOrder : [0, 'asc'],
+            "stateSave": !!stateSave,
+            "stateSaveCallback": function(settings, data) {
+                const dataTableName = 'DataTables-'+ dataTableAttribute + settings.sInstance;
+                localStorage.setItem( dataTableName, JSON.stringify(data));
+            },
+            "stateLoadCallback": function(settings) {
+                return JSON.parse(localStorage.getItem( 'DataTables-'+ dataTableAttribute + settings.sInstance ))
+            },
+        });
+        // Chargement des filtres précédents
+        var state = oTable.state.loaded();
+        if (state) {
+            var columns = oTable.settings().init().columns;
+            oTable.columns().eq(0).each(function (colIdx) {
+                var colSearch = state.columns[colIdx].search;
+                var name = columns[colIdx].name;
+                if (colSearch.search !== "") {
+                    const searchBox = ($('#filters input[name^="'+name+'"], #filters select[name^="' + name + '"]')).first();
+                    searchBox.val(colSearch.search);
+                }
+            });
+        }
+        $(document).ajaxStop(function () {
+            $('#loadOverlay').hide();
+        });
+        $( "#filters input" ).on( "keypress", function(event) {
+            if(event.which == 13) {
+                $('#loadOverlay').show();
+                $('#filters input, #filters select').each(function () {
+                    if (!$(this).data('target')) {
+                        const colonne = oTable.column($(this).attr('name') + ':name');
+                        colonne.search($(this).val() === null ? '' : this.value);
+                    }
+                });
+                oTable.draw();
+            }
+        });
+        $('#search-all').on('click', function () {
+            $('#loadOverlay').show();
+            $('#filters input, #filters select').each(function () {
+                if (!$(this).data('target')) {
+                    const colonne = oTable.column($(this).attr('name') + ':name');
+                    colonne.search($(this).val() === null ? '' : this.value);
+                }
+            });
+            oTable.draw();
+        });
+        $('#clear-all').click(function () {
+            $('#loadOverlay').show();
+            $('#filters input, #filters select').not(':disabled').each(function () {
+                $(this).val('');
+            });
+            oTable.columns().search('').draw();
+        });
+    }
+</script>

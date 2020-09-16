@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/custom/datatables.css') }}" />
 {% endblock %}
 
-{% block content %}
+{% block body %}
     {% block filters_container %}
         <div class="accordion" id="filters">
             <div class="card">
@@ -48,11 +48,20 @@
 
     {% block extra_action %}
         <div class="row mt-4">
-            <div class="actions-btn col-12"><div class="float-right">
+            <div class="actions-btn col-12">
+                <div class="float-right">
+                    {% if create_link is defined %}
                     <a class="btn btn-success" href="{{ create_link is defined ? create_link : '#' }}">
                         <i class="fa fa-plus-circle"></i> {{ 'btn_action.create' | trans }}
                     </a>
-                </div></div>
+                    {% elseif create_link_ajax is defined %}
+                    <button type="button" class="btn btn-outline-secondary mb-3" data-toggle="modal"
+                            data-target="#manageModal">
+                        {% trans %}Add new role{% endtrans %}
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     {% endblock extra_action %}
 
@@ -63,8 +72,16 @@
         </tr>
         </thead>
     </table>
+
+    {% if containAjaxForm is defined %}
+        {% include 'partials/modals/manage_modal.html.twig' %}
+        {% include 'partials/modals/delete_modal.html.twig' %}
+    {% endif %}
 {% endblock %}
 
 {% block specific_javascripts %}
     <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script> {# v 1.10.18 #}
+    {% if containAjaxForm is defined %}
+        <script src="{{ asset('build/js/json_form_utils.js') }}"></script>
+    {% endif %}
 {% endblock %}

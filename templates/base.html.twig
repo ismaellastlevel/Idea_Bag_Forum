@@ -1,5 +1,11 @@
+{# First, we override the error messages in forms #}
+{% for key, value in _context %}
+    {% if value|instanceOf('Symfony\\Component\\Form\\FormView') %}
+        {% form_theme value with 'override.html.twig' %}
+    {% endif %}
+{% endfor %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale  }}">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>

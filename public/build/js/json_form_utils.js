@@ -52,7 +52,30 @@ let xhr = new XMLHttpRequest();
 let btnEdits = document.querySelectorAll(".edit");
 let btnDeletes = document.querySelectorAll(".delete");
 
-btnEdits.forEach(function (btnEdit) {
+$(document).on('click', '.btnEdits', function () {
+    let url = fetchUrl.replace('__ID__', $(this).data('id'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+            let data = JSON.parse(xhr.response);
+            $('#manageModal').modal('show');
+
+            for (let nameForm in data) {
+                for (let inputName in data[nameForm]) {
+                    $('#' + nameForm + '_' + inputName).val(data[nameForm][inputName]);
+                }
+            }
+        }
+    };
+
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+    xhr.send();
+})
+
+/*btnEdits.forEach(function (btnEdit) {
+    console.log(this);
     let url = showUrl.replace('__ID__', btnEdit.dataset.id);
     btnEdit.addEventListener('click', function (event) {
         event.preventDefault();
@@ -74,7 +97,7 @@ btnEdits.forEach(function (btnEdit) {
 
         xhr.send();
     })
-})
+})*/
 
 btnDeletes.forEach(function (btnDelete) {
     let url = deleteId.replace('__ID__', btnDelete.dataset.id);

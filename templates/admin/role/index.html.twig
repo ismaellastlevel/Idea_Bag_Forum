@@ -22,10 +22,11 @@
     {{ parent() }}
     {% include 'init_datatable_js.html.twig' %}
     <script>
+        const fetchUrl = "{{ path('admin_role_fetch', {id: "__ID__"}) }}";
         var urlAjax ="{{ path('admin_role_index', {'_format': 'json'}) }}";
         const stateKey = "AdminRole";
         var editUrl = "{{ path('admin_role_manage', {'id':'__ID__'}) }}";
-        var deleteUrl = "{{ path('admin_role_delete', {'category':'__ID__'}) }}";
+        var deleteUrl = "{{ path('admin_role_delete', {id:'__ID__'}) }}";
         var dataTableColumns = [
             {
                 "data": function(){ return '';},

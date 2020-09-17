@@ -49,7 +49,6 @@ class BaseManager
     {
         $this->sc = $sc;
         $this->em = $em;
-
     }//end __construct()
 
 

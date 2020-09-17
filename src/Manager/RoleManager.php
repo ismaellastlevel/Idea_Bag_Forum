@@ -24,7 +24,7 @@ class RoleManager extends BaseManager
 
     public function getOneRoleById(int $id)
     {
-        return $this->fetchOneEntityById(Role::class, $id);
+        return $this->roleRepository->findOneBy(['id' => $id]);
     }
 
     public function getRolesList(array $filters)

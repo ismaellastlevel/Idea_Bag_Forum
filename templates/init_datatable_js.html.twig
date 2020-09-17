@@ -3,11 +3,19 @@
 </div>
 <script>
     function renderActionColumns(data, type, row) {
+        console.log(data);
         let actionHtml = '';
-        if (typeof showUrl !== 'undefined' && showUrl != '')
+        if (typeof showUrl !== 'undefined' && showUrl != '') {
             actionHtml += '<a class="btn btn-sm text-primary" href="' + showUrl + '"><i class="fa fa-eye"></i></a>';
-        if (typeof editUrl !== 'undefined' && editUrl != '')
-            actionHtml += '<a class="btn btn-sm text-info" href="' + editUrl + '"><i class="fa fa-pencil-alt"></i></a>';
+        }
+
+        if (typeof editUrl !== 'undefined' && editUrl != '') {
+            {% if containAjaxForm is defined %}
+                actionHtml += '<a href="javascript:void(0);" type="button" class="btn btn-sm text-info btnEdits" data-toggle="modal" data-target="#manageModal" data-id="'+data+'"><i class="fa fa-pencil-alt"></i></button>';
+            {% else %}
+                actionHtml += '<a class="btn btn-sm text-info" href="' + editUrl + '"><i class="fa fa-pencil-alt"></i></a>';
+            {% endif %}
+        }
         if (typeof deleteUrl !== 'undefined' && deleteUrl != '')
             actionHtml += '<a class="btn btn-sm text-danger" href="' + deleteUrl + '" onclick="return confirm(\'Voulez-vous vraiment supprimer cette entrée ?\')"><i class="fa fa-trash"></i></a>';
         return actionHtml.replace(/__ID__/g, row.id);

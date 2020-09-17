@@ -118,20 +118,15 @@ class RoleController extends BaseController
     /**
      * @Route("/{id}", name="admin_role_fetch", methods={"GET"}, defaults={"id"=0}, requirements={"id"="\d+|__ID__"})
      */
-    public function fetchRole(HttpFoundation\Request $request, RoleRepository $repository, int $id)
+    public function fetchRole(HttpFoundation\Request $request, RoleManager $manager, int $id)
     {
+        $role = $manager->getOneRoleById($id);
         if ($request->isXmlHttpRequest()) {
-            $role = $repository->findOneBy([
-                'id' => $id
-            ]);
-            if ($role) {
-                return $this->json(
-                    [
-                        'role' => $role
-                    ],
-                    200, []);
-            }
-            return new JsonResponse("No feedback for this role yet, Be the first ");
+            return $this->json(
+                [
+                    'role' => $role
+                ],
+                200, []);
         }
         return new JsonResponse("This function is only available in AJAX");
     }

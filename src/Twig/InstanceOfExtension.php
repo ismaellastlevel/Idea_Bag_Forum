@@ -28,7 +28,12 @@ class InstanceOfExtension extends AbstractExtension
      */
     public function instanceOf($var, string $instance): bool
     {
-        return is_a($var, $instance, true) ? true: false;
+        if (!is_object($var)) {
+            return false;
+        }
+
+        $reflexionClass = new \ReflectionClass($instance);
+        return $reflexionClass->isInstance($var);
     }//end instanceOf()
 
 }

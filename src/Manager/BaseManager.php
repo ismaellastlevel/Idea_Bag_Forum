@@ -12,6 +12,7 @@ namespace App\Manager;
 
 
 use App\Utils\ServiceContainer;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -42,14 +43,15 @@ class BaseManager
     /**
      * BaseManager constructor.
      *
-     * @param EntityManagerInterface $em EntityManager instance.
-     * @param ServiceContainer       $sc ServiceContainer instance.
+     * @param ManagerRegistry $mr
+     * @param ServiceContainer $sc ServiceContainer instance.
      */
-    public function __construct(EntityManagerInterface $em, ServiceContainer $sc)
+    public function __construct(ManagerRegistry $mr, ServiceContainer $sc)
     {
         $this->sc = $sc;
-        $this->em = $em;
-    }//end __construct()
+        $this->em = $mr->getManager();
+    }
+    //end __construct()
 
 
     /**

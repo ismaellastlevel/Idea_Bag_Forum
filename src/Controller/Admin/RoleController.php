@@ -74,7 +74,7 @@ class RoleController extends BaseController
         $data = $request->request->get('role');
         $role = $manager->getOneRoleById((int) $data['id']);
 
-        // Si le role n'éxiste pas, on créer une nouvelle instance pour réaliser un insert.
+        // Si le role n'éxiste pas, on crée une nouvelle instance pour réaliser un insert.
         if (!$role) {
             $role = new Role();
         }

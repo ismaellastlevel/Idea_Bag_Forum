@@ -219,4 +219,13 @@ class BaseManager
     }//end renderInternalException()
 
 
+    /**
+     * @param EntityManager $em
+     */
+    public function setEm(EntityManager $em): void
+    {
+        $this->em = $em;
+    }
+
+
 }//end class

@@ -31,4 +31,6 @@ class RoleManager extends BaseManager
     {
         return $this->roleRepository->getRolesList($filters);
     }
+
+
 }

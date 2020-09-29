@@ -7,6 +7,7 @@ namespace App\Manager;
 use App\Entity\Role;
 use App\Repository\RoleRepository;
 use App\Utils\ServiceContainer;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 
 class RoleManager extends BaseManager
@@ -17,9 +18,11 @@ class RoleManager extends BaseManager
      */
     private $roleRepository;
 
-    public function __construct(EntityManagerInterface $em, ServiceContainer $sc)
+    public function __construct(ManagerRegistry $managerRegistry,ServiceContainer $sc)
     {
-        $this->roleRepository = $em->getRepository(Role::class);
+        parent::__construct($managerRegistry,$sc);
+        $this->roleRepository = $this->em->getRepository(Role::class);
+        dd($this->em);
     }
 
     public function getOneRoleById(int $id)
